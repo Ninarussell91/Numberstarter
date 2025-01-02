@@ -1,50 +1,77 @@
-// Complete the Numbers class below
-// the constructor has already been provided
-class Numbers {
+class NumberOperations {
   constructor(data) {
-    //data can either be a string or an array of numbers
+    // If the data is a string, split it into numbers
     if (typeof data === "string") {
-      this.data = str.split(",").map((number) => number * 1);
+      this.data = data.split(",").map(Number);  // Converting strings to numbers
     } else {
-      this.data = data;
+      this.data = data; // If it's already an array of numbers
     }
   }
+
   count() {
-    //return the count of numbers in data
+    // Return the count of numbers
+    return this.data.length;
   }
+
   printNumbers() {
-    //print the numbers in data
+    // Print each number with its index
+    this.data.forEach((num, index) => console.log(index, num));
   }
+
   odds() {
-    //return the odd numbers in data
+    // Return the odd numbers in the list
+    return this.data.filter((num) => num % 2 !== 0);
   }
+
   evens() {
-    //return the even numbers in data
+    // Return the even numbers in the list
+    return this.data.filter((num) => num % 2 === 0);
   }
+
   sum() {
-    //return the sum of the numbers
+    // Return the sum of all numbers
+    return this.data.reduce((acc, num) => acc + num, 0);
   }
+
   product() {
-    //return the product of the numbers
+    // Return the product of all numbers
+    return this.data.reduce((acc, num) => acc * num, 1);
   }
+
   greaterThan(target) {
-    //return the numbers greater than the target
+    // Return the numbers greater than the given target
+    return this.data.filter((num) => num > target);
   }
+
   howMany(target) {
-    //return the count of a given number
+    // Return the count of a specific number in the list
+    return this.data.filter((num) => num === target).length;
   }
 }
 
-//Prompt the user for a list of integers separated by commas
-const str = prompt("enter some numbers, like this", "1,2,3,3,5,9");
+// Create a random string of numbers separated by commas
+let randomString = "";
+let randomLength = Math.floor(Math.random() * 10) + 1;  // Random length between 1 and 10
+for (let i = 0; i < randomLength; i++) {
+  randomString += Math.floor(Math.random() * 10) + ",";  // Random number 0-9
+}
+randomString += Math.floor(Math.random() * 10);  // Add the last number
 
-//create an instance of numbers
-const n1 = new Numbers(str);
-console.log(n1.count()); //returns count of numbers
-n1.printNumbers(); //prints the number along with their indexes
-console.log(n1.odds()); //returns odd numbers
-console.log(n1.evens()); //returns even numbers
-console.log(n1.sum()); //returns sum of numbers
-console.log(n1.product()); //returns product of numbers
-console.log(n1.greaterThan(3)); //returns numbers greater than another number
-console.log(n1.howMany(3)); //return the count of a specific number
+// Prompt the user to enter numbers, with a default random string
+const inputString = prompt("Enter some numbers (separated by commas):", randomString);
+
+// Create an instance of the NumberOperations class
+const numbersInstance = new NumberOperations(inputString);
+
+// Display results
+console.log(`Count of numbers: ${numbersInstance.count()}`);
+numbersInstance.printNumbers();  // Print numbers with their indexes
+console.log(`Odd numbers: ${numbersInstance.odds()}`);
+console.log(`Even numbers: ${numbersInstance.evens()}`);
+console.log(`Sum of numbers: ${numbersInstance.sum()}`);
+console.log(`Product of numbers: ${numbersInstance.product()}`);
+
+// Use the randomLength as the target number for demonstration
+console.log(`Numbers greater than ${randomLength}: ${numbersInstance.greaterThan(randomLength)}`);
+console.log(`How many times does ${randomLength} appear: ${numbersInstance.howMany(randomLength)}`);
+
